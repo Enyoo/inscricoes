@@ -1,0 +1,27 @@
+<div class="container-fluid meuContainer">
+    <div class="login px-5">
+        <div class="row">
+            <div class="col-12">
+                <div class="logo">logo</div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="formulario">
+                    <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+                        <label for="LOGIN">Login:</label>
+                        <input ngModel name="login" placeholder="Login" class="form-control" required>
+        
+                        <br>
+                        <label for="Senha">Senha:</label>
+                        <input ngModel type="password" name="senha" class="form-control" required>
+        
+                        <br>
+                        <button class="btn btn-info btn-block" type="submit">Acessar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</div>

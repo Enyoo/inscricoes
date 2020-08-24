@@ -1,0 +1,20 @@
+.meuContainer {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #eeed !important;
+}
+.login {
+    width: 30vw;
+    padding: 20px;
+    border: 1px solid #b2b2b2
+}
+.logo {
+    height: 30px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+

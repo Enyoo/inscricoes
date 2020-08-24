@@ -1,0 +1,14 @@
+{
+  "name": "inscricoes",
+  "version": "1.0.0",
+  "description": "sistema para inscrições de alunos em modalidades de esportes",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Enyo Souza",
+  "license": "ISC",
+  "dependencies": {
+    "@angular/core": "^10.0.11"
+  }
+}

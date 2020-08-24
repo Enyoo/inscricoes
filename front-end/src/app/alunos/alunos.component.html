@@ -1,0 +1,59 @@
+<div class="container-fluid meuContainer">
+  <div class="login px-5">
+    <div class="row">
+      <div class="col-12">
+        <div class="logo">logo</div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <div class="formulario">
+          <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+            <label for="Modalidade">Modalidade:</label>
+            <select ngModel name="modalidade" id="modalidade" class="form-control" (change)="carregaNivel($event.target.value)" required>
+              <option value="">Escolha...</option>
+              <option *ngFor="let modalidade of modalidades" [value]="modalidade.nome">{{modalidade.nome | uppercase}}
+              </option>
+            </select>
+
+            <br>
+            <label for="Nível">Nível:</label>
+            <select ngModel name="nivel" class="form-control"  (change)="carregaTipo($event.target.value)" required>
+              <option *ngIf="!nivelS" disabled selected>ESCOLHA UMA MODALIDADE</option>
+              <option *ngIf="nivelS" value="" selected>ESCOLHA...</option>
+              <option *ngFor="let modalidade of niveis" [value]="modalidade.nivel">{{modalidade.nivel | uppercase}}</option>
+            </select>
+
+            <br>
+            <label for="Tipo">Tipo:</label>
+            <select ngModel name="tipo" class="form-control"  (change)="carregaDias($event.target.value)" required>
+              <option *ngIf="!tipoS" disabled selected>ESCOLHA UM NÍVEL</option>
+              <option *ngIf="tipoS" value="" selected>ESCOLHA...</option>
+              <option *ngFor="let modalidade of tipos" [value]="modalidade.tipo">{{modalidade.tipo | uppercase}}</option>
+            </select>
+
+            <br>
+            <label for="Dias">Dias:</label>
+            <select ngModel name="dias" class="form-control"  (change)="carregaHorarios($event.target.value)" required>
+              <option *ngIf="!diasS" disabled selected>ESCOLHA UM TIPO</option>
+              <option *ngIf="diasS" value="" selected>ESCOLHA...</option>
+              <option *ngFor="let modalidade of dias" [value]="modalidade.dias">{{modalidade.dias | uppercase}}</option>
+            </select>
+
+            <br>
+            <label for="Horários">Horários:</label>
+            <select ngModel name="horarios" class="form-control"  (change)="carregaBotao($event.target.value)" required>
+              <option *ngIf="!horariosS" disabled selected>ESCOLHA OS DIAS</option>
+              <option *ngIf="horariosS" value="" selected>ESCOLHA...</option>
+              <option *ngFor="let modalidade of dias" [value]="modalidade.horarios">{{modalidade.horarios | uppercase}}</option>
+            </select>
+
+            <br>
+            <button class="btn btn-info btn-block" type="submit" [disabled]="matricular ? false : true">SALVAR</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
