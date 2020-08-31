@@ -16,9 +16,10 @@
   margin-bottom: 10px;
   text-align: left;
 }
-.cards{
-  display: flex;
 
+.header {
+  display: flex;
+  justify-content: space-between;
 }
 
 

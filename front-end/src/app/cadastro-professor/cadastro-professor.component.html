@@ -1,0 +1,29 @@
+<div class="container-fluid meuContainer">
+  <div class="login px-5">
+    <div class="row">
+      <div class="col-12 header">
+        <div class="logo">logo</div>
+        <div class="titulo">Cadastro de Disciplinas</div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <div class="formulario">
+          <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+            <label for="Modalidade">Modalidade:</label>
+            <input type="text" ngModel name="modalidade" id="modalidade" class="form-control" #input (input)="input.value=$event.target.value.toUpperCase()" required>
+            <br>
+
+            <label for="Professor">Professor:</label>
+            <input type="text" ngModel name="professor" id="modalidade" class="form-control"  #input (input)="input.value=$event.target.value.toUpperCase()" required>
+            <br>
+
+            <br>
+            <button class="btn btn-info btn-block" type="submit">SALVAR</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

@@ -12,4 +12,7 @@ export class CoordenacaoComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  onSubmit(data){
+    return true;
+  }
 }
