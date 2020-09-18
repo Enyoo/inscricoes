@@ -12,6 +12,9 @@ import { CadastroOfertaComponent } from './cadastro-oferta/cadastro-oferta.compo
 import { CadastroAlunosComponent } from './cadastro-alunos/cadastro-alunos.component';
 import { GestaoMatriculasComponent } from './gestao-matriculas/gestao-matriculas.component';
 import { GestaoMatriculasDisciplinaComponent } from './gestao-matriculas-disciplina/gestao-matriculas-disciplina.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatButtonModule } from '@angular/material/button';
+import { SidebarComponent } from './sidebar/sidebar.component';
 
 @NgModule({
   declarations: [
@@ -23,12 +26,15 @@ import { GestaoMatriculasDisciplinaComponent } from './gestao-matriculas-discipl
     CadastroOfertaComponent,
     CadastroAlunosComponent,
     GestaoMatriculasComponent,
-    GestaoMatriculasDisciplinaComponent
+    GestaoMatriculasDisciplinaComponent,
+    SidebarComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    BrowserAnimationsModule,
+    MatButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]

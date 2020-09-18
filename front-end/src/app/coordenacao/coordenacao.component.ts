@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./coordenacao.component.css']
 })
 export class CoordenacaoComponent implements OnInit {
+  showFiller = true;
 
   constructor() { }
 
