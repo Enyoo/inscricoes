@@ -8,4 +8,4 @@ export class Modalidade {
     professor: string;
     vagas: number;
     matriculados: number;
-}   
+}

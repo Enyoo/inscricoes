@@ -1,21 +1,23 @@
 import { Injectable } from '@angular/core';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 
 import { Usuario } from '../models/usuario';
+import { environment } from '../../environments/environment';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   private usuario: Usuario;
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
+  // Headers
+  httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  };
 
-  login(auth: Usuario){
-    if(auth.tipo == 1){
-      console.log('admin');
-      return;
-    }
-    console.log(auth.usuario, auth.senha, auth.tipo);
-    return;
+  login(auth: Usuario): Observable<Usuario>{
+      return this.http.post<Usuario>(environment.baseUrl+'login', auth, this.httpOptions);
   }
 }

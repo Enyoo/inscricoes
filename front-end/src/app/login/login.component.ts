@@ -1,3 +1,5 @@
+import { Usuario } from './../models/usuario';
+import { AuthService } from './../services/auth.service';
 import {Component, OnInit} from '@angular/core';
 import {NgForm} from '@angular/forms';
 import { Router } from '@angular/router';
@@ -8,20 +10,31 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  
-  constructor(private router: Router) { }
+  usuario: Usuario = new Usuario;
+  constructor(private router: Router, private service: AuthService) { }
 
   ngOnInit(): void {
   }
-  
+
   onSubmit(f: NgForm) {
-    console.table(f.value);
+    this.usuario.usuario = f.value.login;
+    this.usuario.senha = f.value.senha;
     if(f.value.login == 'enyo'){
-      this.router.navigate(['/coordenacao']);
+      // this.router.navigate(['/coordenacao']);
+
+      this.service.login(this.usuario).subscribe({
+        next: retorno => console.info(retorno),
+        complete: ()=>console.warn('sessao')
+      });
     }
 
+
     if(f.value.login == f.value.senha){
-      this.router.navigate(['/aluno']);
+      // this.router.navigate(['/aluno']);
+      this.service.login(this.usuario).subscribe({
+        next: retorno => console.info(retorno),
+        complete: ()=>console.warn('sessao')
+      });
     }
   }
 

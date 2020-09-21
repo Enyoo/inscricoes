@@ -14,10 +14,12 @@ $config = [
     'components' => [
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
+            'enableCsrfValidation' => false,
             'cookieValidationKey' => 'YmMYfvHyFNITJVpb-4bAUMGGFn4owzl1',
             'parsers' => [
                 'application/json' => 'yii\web\JsonParser',
-            ]
+            ],
+            
         ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
@@ -52,6 +54,11 @@ $config = [
             'enableStrictParsing' => true,
             'showScriptName' => false,
             'rules' => [
+                'POST login' => 'alunos/index',
+                'GET modalidades' => 'esportes/index',
+                'POST modalidades/importar' => 'esportes/importar',
+                'GET matricula/todos' => 'matriculados/index',
+                'POST matricula/salvar' => 'matriculados/salvar',
             ],
         ],
         
