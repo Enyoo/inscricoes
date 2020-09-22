@@ -11,17 +11,21 @@
                     <form #f="ngForm" (ngSubmit)="onSubmit(f)">
                         <label for="LOGIN">Login:</label>
                         <input ngModel name="login" placeholder="Login" class="form-control" required>
-        
+
                         <br>
                         <label for="Senha">Senha:</label>
                         <input ngModel type="password" name="senha" class="form-control" required>
-        
+                        <br>
+                        <span class="pl-2 text-danger">{{erro}}</span>
+                        <br>
                         <br>
                         <button class="btn btn-info btn-block" type="submit">Acessar</button>
+                        <br>
+                        <span class="pl-2 p-3 mt-2 text-gray">{{acessando}}</span>
                     </form>
                 </div>
             </div>
         </div>
-        
+
     </div>
 </div>

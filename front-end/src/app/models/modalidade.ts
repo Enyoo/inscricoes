@@ -7,5 +7,5 @@ export class Modalidade {
     horarios: string;
     professor: string;
     vagas: number;
-    matriculados: number;
+    matriculados?: number;
 }

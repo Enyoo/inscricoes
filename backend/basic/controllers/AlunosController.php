@@ -12,7 +12,7 @@ use app\models\LoginForm;
 use app\models\ContactForm;
 use yii\helpers\Json;
 
-class AlunosController extends Controller
+class AlunosController extends ApplicationController
 {
     /**
      * {@inheritdoc}
@@ -35,15 +35,12 @@ class AlunosController extends Controller
     public function actionIndex()
     {
         $post = Yii::$app->request->post();
-        if(empty($post['matricula'])){
+        if(empty($post['usuario'])){
             return false;
         }
+        $aluno = Alunos::find()->where(['matricula'=>$post['usuario']])->one();
 
-        $model = new Alunos();
-        
-        $model::findOne(['matricula'=>$post['matricula']]);
-        
-        return Json::encode($model);
+        return Json::encode($aluno);        
     }
 
     /**

@@ -1,3 +1,5 @@
+import { AuthService } from './services/auth.service';
+import { AuthGuardService } from './guards/auth.guard';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
@@ -38,7 +40,7 @@ import { HttpClientModule } from '@angular/common/http';
     MatButtonModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [AuthService, AuthGuardService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

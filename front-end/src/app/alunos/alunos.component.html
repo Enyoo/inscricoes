@@ -12,7 +12,7 @@
             <label for="Modalidade">Modalidade:</label>
             <select ngModel name="modalidade" id="modalidade" class="form-control" (change)="carregaNivel($event.target.value)" required>
               <option value="">Escolha...</option>
-              <option *ngFor="let modalidade of modalidades" [value]="modalidade.nome">{{modalidade.nome | uppercase}}
+              <option *ngFor="let modalidade of modalidadesNomes" [value]="modalidade.modalidade">{{modalidade.modalidade | uppercase}}
               </option>
             </select>
 
@@ -45,12 +45,15 @@
             <select ngModel name="horarios" class="form-control"  (change)="carregaBotao($event.target.value)" required>
               <option *ngIf="!horariosS" disabled selected>ESCOLHA OS DIAS</option>
               <option *ngIf="horariosS" value="" selected>ESCOLHA...</option>
-              <option *ngFor="let modalidade of dias" [value]="modalidade.horarios">{{modalidade.horarios | uppercase}}</option>
+              <option *ngFor="let modalidade of horarios" [value]="modalidade.horarios">{{modalidade.horarios | uppercase}}</option>
             </select>
 
             <br>
             <button class="btn btn-info btn-block" type="submit" [disabled]="matricular ? false : true">SALVAR</button>
+            <br>
+            <br>
           </form>
+          <button class="btn btn-info btn-block" (click)="sair()" type="">SAIR</button>
         </div>
       </div>
     </div>

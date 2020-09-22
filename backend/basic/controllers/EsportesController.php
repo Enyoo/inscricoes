@@ -12,7 +12,7 @@ use app\models\ContactForm;
 use app\models\Esportes;
 use yii\helpers\Json;
 
-class EsportesController extends Controller
+class EsportesController extends ApplicationController
 {
     /**
      * {@inheritdoc}
@@ -28,7 +28,61 @@ class EsportesController extends Controller
 
     public function actionIndex()
     {
-        return Json::encode(Esportes::find()->all());
+        $dados = Esportes::find()->all();
+        return Json::encode($dados);
+    }
+
+    public function actionModalidades(){
+        $dados = Esportes::find()->select(['modalidade'])->groupBy(['modalidade'])->all();
+        return Json::encode($dados);
+    }
+
+    public function actionNiveis(){
+        $post = Yii::$app->request->post();
+        $dados = Esportes::find()->where(['modalidade'=>$post['modalidade']])->select(['nivel'])->groupBy(['nivel'])->all();
+        return Json::encode($dados);
+    }
+
+    public function actionTipos(){
+        $post = Yii::$app->request->post();
+        $dados = Esportes::find()
+            ->where([
+                'nivel'=>$post['nivel'],
+                'modalidade'=>$post['modalidade']
+            ])
+            ->select(['tipo'])
+            ->groupBy(['tipo'])
+            ->all();
+        return Json::encode($dados);
+    }
+
+    public function actionDias(){
+        $post = Yii::$app->request->post();
+        $dados = Esportes::find()
+            ->where([
+                'nivel'=>$post['nivel'],
+                'modalidade'=>$post['modalidade'],
+                'tipo'=>$post['tipo']
+            ])
+            ->select(['dias'])
+            ->groupBy(['dias'])
+            ->all();
+        return Json::encode($dados);
+    }
+
+    public function actionHorarios(){
+        $post = Yii::$app->request->post();
+        $dados = Esportes::find()
+            ->where([
+                'nivel'=>$post['nivel'],
+                'modalidade'=>$post['modalidade'],
+                'tipo'=>$post['tipo'],
+                'dias'=>$post['dias'],
+            ])
+            ->select(['horarios'])
+            ->groupBy(['horarios'])
+            ->all();
+        return Json::encode($dados);
     }
 
     public function actionImportar(){

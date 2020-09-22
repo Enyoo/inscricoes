@@ -1,9 +1,13 @@
+import { AuthService } from './../services/auth.service';
+import { ModalidadesService } from './../services/modalidades.service';
 import { NgForm } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 
 import { Modalidade } from '../models/modalidade'
 import { Route } from '@angular/compiler/src/core';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { Aluno } from './../models/Aluno';
 
 @Component({
   selector: 'app-alunos',
@@ -15,6 +19,7 @@ export class AlunosComponent implements OnInit {
   tipoS = false;
   diasS = false;
   horariosS = false;
+  modalidadesNomes = [];
   niveis = [];
   tipos = [];
   dias = [];
@@ -22,7 +27,7 @@ export class AlunosComponent implements OnInit {
   matricular = false;
   modalidadeSelecionada: Modalidade = new Modalidade;
 
-  modalidades = [
+  arrayModalidades: Modalidade[] = [
     {
       id: 1,
       nome: 'Basquete',
@@ -96,29 +101,49 @@ export class AlunosComponent implements OnInit {
     },
   ];
 
-  constructor(private router: Router) { }
+  valoresUnicos(value, index, self) {
+    return self.indexOf(value) === index;
+  }
+
+  constructor(
+    private router: Router,
+    private service: ModalidadesService,
+    private auth: AuthService
+    ) { }
 
   ngOnInit(): void {
+    console.log(this.auth.autenticado);
+    this.carregaTodasModalidades();
+  }
 
+  carregaTodasModalidades(){
+    this.nivelS = false;
+    this.tipoS = false;
+    this.diasS = false;
+    this.horariosS = false;
+    this.modalidadeSelecionada = new Modalidade();
+    return this.service.modalidadesNomes().subscribe({
+      next: modalidadesServico => {
+        this.modalidadesNomes = modalidadesServico;
+      }
+    });
   }
 
 
   carregaNivel(modalidadeSel){
-    if(modalidadeSel == ''){
-      this.nivelS = false;
-      this.tipoS = false;
-      this.diasS = false;
-      this.modalidadeSelecionada = new Modalidade();
-      return;
-    }
+    this.nivelS = false;
+    this.tipoS = false;
+    this.diasS = false;
+    this.modalidadeSelecionada = new Modalidade();
     this.modalidadeSelecionada.modalidade = modalidadeSel;
-
-    this.niveis = this.modalidades.filter(function(modalidade){
-      if(modalidade.nome == modalidadeSel){
-        return modalidade;
+    return this.service.modalidadesNiveis(this.modalidadeSelecionada).subscribe({
+      next: niveisServico => {
+        this.niveis = niveisServico;
+      },
+      complete: () => {
+        this.nivelS = true;
       }
     });
-    this.nivelS = true;
   }
 
   carregaTipo(nivelSel){
@@ -134,14 +159,14 @@ export class AlunosComponent implements OnInit {
     this.modalidadeSelecionada.nivel = nivelSel;
     let modalidadeEscolhida = this.modalidadeSelecionada;
 
-    this.tipos = this.niveis.filter(function(modalidade){
-      if( modalidade.nivel == nivelSel &&
-          modalidade.nome == modalidadeEscolhida.modalidade
-        ){
-        return modalidade;
+    return this.service.modalidadesTipos(this.modalidadeSelecionada).subscribe({
+      next: tiposServico => {
+        this.tipos = tiposServico;
+      },
+      complete: () => {
+        this.tipoS = true;
       }
     });
-    this.tipoS = true;
   }
 
   carregaDias(tipoSel){
@@ -156,15 +181,14 @@ export class AlunosComponent implements OnInit {
     this.modalidadeSelecionada.tipo = tipoSel;
     let modalidadeEscolhida = this.modalidadeSelecionada;
 
-    this.dias = this.niveis.filter(function(modalidade){
-      if( modalidade.tipo == tipoSel &&
-          modalidade.nome == modalidadeEscolhida.modalidade &&
-          modalidade.nivel == modalidadeEscolhida.nivel
-        ){
-        return modalidade;
+    return this.service.modalidadesDias(this.modalidadeSelecionada).subscribe({
+      next: diasServico => {
+        this.dias = diasServico;
+      },
+      complete: () => {
+        this.diasS = true;
       }
     });
-    this.diasS = true;
   }
 
   carregaHorarios(diasSel){
@@ -178,16 +202,15 @@ export class AlunosComponent implements OnInit {
     this.modalidadeSelecionada.dias = diasSel;
     let modalidadeEscolhida = this.modalidadeSelecionada;
 
-    this.horarios = this.niveis.filter(function(modalidade){
-      if( modalidade.tipo == diasSel &&
-          modalidade.nome == modalidadeEscolhida.modalidade &&
-          modalidade.nivel == modalidadeEscolhida.nivel &&
-          modalidade.dias == modalidadeEscolhida.dias
-        ){
-        return modalidade;
+    return this.service.modalidadesHorarios(this.modalidadeSelecionada).subscribe({
+      next: horariosServico => {
+        console.log(horariosServico)
+        this.horarios = horariosServico;
+      },
+      complete: () => {
+        this.horariosS = true;
       }
     });
-    this.horariosS = true;
   }
 
 
@@ -204,6 +227,29 @@ export class AlunosComponent implements OnInit {
   }
 
   onSubmit(f: NgForm) {
+    let dados: Aluno = this.auth.usuario;
     console.table(f.value);
+    let dadosEnvio = {
+      nome: dados.nome,
+      matricula: dados.matricula,
+      modalidade: f.value.modalidade,
+      nivel: f.value.nivel,
+      tipo: f.value.tipo,
+      dias: f.value.dias,
+      horarios: f.value.horarios,
+
+    }
+    return this.service.matricularAluno(dadosEnvio).subscribe({
+      complete: () => {
+        alert('Matricula realizada com sucesso');
+      },
+      error: erro => alert('Ocorreu um erro. Tente novamente.')
+    });
+  }
+
+  sair(){
+    this.auth.autenticado = false;
+    console.log(this.auth.autenticado);
+    this.router.navigate(['/login']);
   }
 }

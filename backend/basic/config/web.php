@@ -1,5 +1,4 @@
 <?php
-
 $params = require __DIR__ . '/params.php';
 $db = require __DIR__ . '/db.php';
 
@@ -54,11 +53,16 @@ $config = [
             'enableStrictParsing' => true,
             'showScriptName' => false,
             'rules' => [
-                'POST login' => 'alunos/index',
-                'GET modalidades' => 'esportes/index',
-                'POST modalidades/importar' => 'esportes/importar',
-                'GET matricula/todos' => 'matriculados/index',
-                'POST matricula/salvar' => 'matriculados/salvar',
+                'POST,OPTIONS login' => 'alunos/index',
+                'GET,OPTIONS modalidades' => 'esportes/index',
+                'GET,OPTIONS modalidades/nomes' => 'esportes/modalidades',
+                'POST,OPTIONS modalidades/niveis' => 'esportes/niveis',
+                'POST,OPTIONS modalidades/tipos' => 'esportes/tipos',
+                'POST,OPTIONS modalidades/dias' => 'esportes/dias',
+                'POST,OPTIONS modalidades/horarios' => 'esportes/horarios',
+                'POST,OPTIONS modalidades/importar' => 'esportes/importar',
+                'GET,OPTIONS matricula/todos' => 'matriculados/index',
+                'POST,OPTIONS matricula/salvar' => 'matriculados/salvar',
             ],
         ],
         

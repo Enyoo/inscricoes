@@ -1,3 +1,4 @@
+import { AuthGuardService } from './guards/auth.guard';
 import { GestaoMatriculasDisciplinaComponent } from './gestao-matriculas-disciplina/gestao-matriculas-disciplina.component';
 import { CadastroProfessorComponent } from './cadastro-professor/cadastro-professor.component';
 import { NgModule } from '@angular/core';
@@ -17,31 +18,46 @@ const routes: Routes = [
   },
   {
     path: 'aluno',
-    component: AlunosComponent
+    component: AlunosComponent,
+    canActivate: [AuthGuardService]
   },
   {
     path: 'coordenacao',
-    component: CoordenacaoComponent
+    component: CoordenacaoComponent,
+    canActivate: [AuthGuardService]
   },
   {
     path: 'cadastro-oferta',
-    component: CadastroOfertaComponent
+    component: CadastroOfertaComponent,
+    canActivate: [AuthGuardService]
   },
   {
     path: 'cadastro-professor',
-    component: CadastroProfessorComponent
+    component: CadastroProfessorComponent,
+    canActivate: [AuthGuardService]
   },
   {
     path: 'cadastro-alunos',
-    component: CadastroAlunosComponent
+    component: CadastroAlunosComponent,
+    canActivate: [AuthGuardService]
   },
   {
     path: 'gestao-matriculas',
-    component: GestaoMatriculasComponent
+    component: GestaoMatriculasComponent,
+    canActivate: [AuthGuardService]
   },
   {
     path: 'gestao-matriculas-disciplina',
-    component: GestaoMatriculasDisciplinaComponent
+    component: GestaoMatriculasDisciplinaComponent,
+    canActivate: [AuthGuardService]
+  },
+  {
+    path: 'login',
+    component: LoginComponent
+  },
+  {
+    path: '**',
+    component: LoginComponent
   },
 ];
 

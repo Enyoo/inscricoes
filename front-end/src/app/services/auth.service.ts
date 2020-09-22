@@ -1,3 +1,4 @@
+import { Aluno } from './../models/Aluno';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 
@@ -9,7 +10,8 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class AuthService {
-  private usuario: Usuario;
+  usuario: Aluno;
+  autenticado: boolean = false;
   constructor(private http: HttpClient) { }
 
   // Headers
@@ -17,7 +19,15 @@ export class AuthService {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
 
-  login(auth: Usuario): Observable<Usuario>{
-      return this.http.post<Usuario>(environment.baseUrl+'login', auth, this.httpOptions);
+  login(auth: Usuario): Observable<Aluno>{
+      return this.http.post<Aluno>(environment.baseUrl+'login', auth, this.httpOptions);
+  }
+
+  usuarioAutenticado(state: boolean):void{
+    this.autenticado = state;
+  }
+
+  dadosUsuarioAutenticado():Aluno{
+    return this.usuario;
   }
 }
